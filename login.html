@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>College Complaint System - Login</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: linear-gradient(
+            135deg,
+            #0f0c29,
+            #302b63,
+            #24243e
+        );
+
+        overflow: hidden;
+    }
+
+    /* Background circles */
+
+    .circle {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(2px);
+        animation: float 6s ease-in-out infinite;
+    }
+
+    .circle.one {
+        width: 250px;
+        height: 250px;
+        background: rgba(255, 255, 255, 0.08);
+        top: 5%;
+        left: 10%;
+    }
+
+    .circle.two {
+        width: 350px;
+        height: 350px;
+        background: rgba(255, 255, 255, 0.05);
+        bottom: -100px;
+        right: 5%;
+        animation-delay: 2s;
+    }
+
+    @keyframes float {
+
+        0% {
+            transform: translateY(0px);
+        }
+
+        50% {
+            transform: translateY(-25px);
+        }
+
+        100% {
+            transform: translateY(0px);
+        }
+    }
+
+    /* Login box */
+
+    .login-container {
+        width: 400px;
+        padding: 40px;
+
+        background: rgba(255, 255, 255, 0.10);
+
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        border-radius: 20px;
+
+        backdrop-filter: blur(15px);
+
+        box-shadow:
+            0 20px 40px rgba(0, 0, 0, 0.4);
+
+        color: white;
+
+        z-index: 2;
+
+        animation: appear 0.8s ease;
+    }
+
+    @keyframes appear {
+
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .logo {
+        text-align: center;
+        font-size: 55px;
+        margin-bottom: 10px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+    .subtitle {
+        text-align: center;
+        color: #ddd;
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+
+    /* Input */
+
+    .input-group {
+        margin-bottom: 20px;
+    }
+
+    .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .input-group input {
+        width: 100%;
+        padding: 14px;
+
+        border: none;
+        outline: none;
+
+        border-radius: 10px;
+
+        background: rgba(255, 255, 255, 0.15);
+
+        color: white;
+
+        font-size: 15px;
+    }
+
+    .input-group input::placeholder {
+        color: #ccc;
+    }
+
+    .input-group input:focus {
+        background: rgba(255, 255, 255, 0.22);
+        box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.25);
+    }
+
+    /* Button */
+
+    .login-btn {
+        width: 100%;
+        padding: 14px;
+
+        border: none;
+        border-radius: 10px;
+
+        background: white;
+        color: #302b63;
+
+        font-size: 16px;
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+    }
+
+    .login-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Register */
+
+    .register-text {
+        text-align: center;
+        margin-top: 25px;
+
+        font-size: 14px;
+        color: #ddd;
+    }
+
+    .register-text a {
+        color: white;
+        font-weight: bold;
+        text-decoration: none;
+    }
+
+    .register-text a:hover {
+        text-decoration: underline;
+    }
+
+    /* Flash message */
+
+    .message {
+        background: rgba(255, 80, 80, 0.2);
+
+        border: 1px solid rgba(255, 100, 100, 0.4);
+
+        padding: 10px;
+
+        border-radius: 8px;
+
+        margin-bottom: 20px;
+
+        text-align: center;
+
+        font-size: 14px;
+    }
+
+    /* Mobile */
+
+    @media (max-width: 500px) {
+
+        .login-container {
+            width: 90%;
+            padding: 30px 25px;
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+```
+<!-- Background -->
+
+<div class="circle one"></div>
+<div class="circle two"></div>
+
+
+<!-- Login Box -->
+
+<div class="login-container">
+
+    <div class="logo">
+        🏫
+    </div>
+
+    <h1>Welcome Back</h1>
+
+    <p class="subtitle">
+        College Complaint Management System
+    </p>
+
+
+    <!-- Flash Messages -->
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- Login Form -->
+
+    <form action="{{ url_for('login') }}" method="POST">
+
+        <div class="input-group">
+
+            <label>Email</label>
+
+            <input
+                type="email"
+                name="email"
+                placeholder="Enter your email"
+                required
+            >
+
+        </div>
+
+
+        <div class="input-group">
+
+            <label>Password</label>
+
+            <input
+                type="password"
+                name="password"
+                placeholder="Enter your password"
+                required
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="login-btn"
+        >
+            Login
+        </button>
+
+    </form>
+
+
+    <div class="register-text">
+
+        Don't have an account?
+
+        <a href="{{ url_for('register') }}">
+            Create Account
+        </a>
+
+    </div>
+
+</div>
+```
+
+</body>
+
+</html>

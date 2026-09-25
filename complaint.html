@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Submit Complaint</title>
+
+<style>
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+    }
+
+    body {
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: linear-gradient(
+            135deg,
+            #0f0c29,
+            #302b63,
+            #24243e
+        );
+
+        padding: 20px;
+
+        color: white;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 600px;
+
+        background: rgba(255,255,255,0.10);
+
+        padding: 35px;
+
+        border-radius: 20px;
+
+        backdrop-filter: blur(15px);
+
+        box-shadow:
+            0 10px 40px rgba(0,0,0,0.4);
+    }
+
+    .title {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .title h1 {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+
+    .title p {
+        color: #ccc;
+    }
+
+    .form-group {
+        margin-bottom: 20px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    input,
+    select,
+    textarea {
+        width: 100%;
+
+        padding: 13px;
+
+        border: none;
+        outline: none;
+
+        border-radius: 10px;
+
+        background: rgba(255,255,255,0.15);
+
+        color: white;
+
+        font-size: 15px;
+    }
+
+    input::placeholder,
+    textarea::placeholder {
+        color: #ccc;
+    }
+
+    select option {
+        color: black;
+    }
+
+    textarea {
+        height: 150px;
+        resize: vertical;
+    }
+
+    .submit-btn {
+        width: 100%;
+
+        padding: 14px;
+
+        border: none;
+
+        border-radius: 10px;
+
+        background: #00c6ff;
+
+        color: white;
+
+        font-size: 16px;
+
+        font-weight: bold;
+
+        cursor: pointer;
+
+        transition: 0.3s;
+    }
+
+    .submit-btn:hover {
+        transform: translateY(-3px);
+
+        background: #0099cc;
+    }
+
+    .back-btn {
+        display: block;
+
+        text-align: center;
+
+        margin-top: 18px;
+
+        color: white;
+
+        text-decoration: none;
+    }
+
+    .back-btn:hover {
+        text-decoration: underline;
+    }
+
+    .message {
+        background: rgba(255, 80, 80, 0.15);
+
+        border: 1px solid #ff6666;
+
+        padding: 10px;
+
+        border-radius: 10px;
+
+        margin-bottom: 20px;
+
+        text-align: center;
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<div class="container">
+
+```
+<!-- Title -->
+
+<div class="title">
+
+    <h1>📝 Submit Complaint</h1>
+
+    <p>
+        Report your college issue
+    </p>
+
+</div>
+
+
+<!-- Flash Messages -->
+
+{% with messages = get_flashed_messages() %}
+
+    {% if messages %}
+
+        {% for message in messages %}
+
+            <div class="message">
+                {{ message }}
+            </div>
+
+        {% endfor %}
+
+    {% endif %}
+
+{% endwith %}
+
+
+<!-- Complaint Form -->
+
+<form
+    method="POST"
+    action="{{ url_for('complaint') }}"
+    id="complaintForm"
+>
+
+
+    <!-- Category -->
+
+    <div class="form-group">
+
+        <label for="category">
+            Complaint Category
+        </label>
+
+        <select
+            name="category"
+            id="category"
+            required
+        >
+
+            <option value="">
+                Select Category
+            </option>
+
+            <option value="Infrastructure">
+                Infrastructure
+            </option>
+
+            <option value="Electricity">
+                Electricity
+            </option>
+
+            <option value="Water">
+                Water
+            </option>
+
+            <option value="Cleanliness">
+                Cleanliness
+            </option>
+
+            <option value="Internet">
+                Internet / Wi-Fi
+            </option>
+
+            <option value="Classroom">
+                Classroom
+            </option>
+
+            <option value="Hostel">
+                Hostel
+            </option>
+
+            <option value="Laboratory">
+                Laboratory
+            </option>
+
+            <option value="Library">
+                Library
+            </option>
+
+            <option value="Other">
+                Other
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- Location -->
+
+    <div class="form-group">
+
+        <label for="location">
+            📍 Location
+        </label>
+
+        <input
+            type="text"
+            name="location"
+            id="location"
+            placeholder="Example: Block A, Room 204"
+            required
+        >
+
+    </div>
+
+
+    <!-- Description -->
+
+    <div class="form-group">
+
+        <label for="description">
+            📝 Complaint Description
+        </label>
+
+        <textarea
+            name="description"
+            id="description"
+            placeholder="Explain your complaint clearly..."
+            required
+        ></textarea>
+
+    </div>
+
+
+    <!-- Submit Button -->
+
+    <button
+        type="submit"
+        class="submit-btn"
+    >
+        🚀 Submit Complaint
+    </button>
+
+
+</form>
+
+
+<!-- Back to Dashboard -->
+
+<a
+    href="{{ url_for('student_dashboard') }}"
+    class="back-btn"
+>
+    ← Back to Dashboard
+</a>
+```
+
+</div>
+
+<script>
+
+    document
+        .getElementById("complaintForm")
+        .addEventListener("submit", function(event) {
+
+            const category =
+                document.getElementById("category").value;
+
+            const location =
+                document.getElementById("location").value.trim();
+
+            const description =
+                document.getElementById("description").value.trim();
+
+
+            if (category === "") {
+
+                alert("Please select a complaint category.");
+
+                event.preventDefault();
+
+                return;
+            }
+
+
+            if (location === "") {
+
+                alert("Please enter the complaint location.");
+
+                event.preventDefault();
+
+                return;
+            }
+
+
+            if (description === "") {
+
+                alert("Please enter the complaint description.");
+
+                event.preventDefault();
+
+                return;
+            }
+
+        });
+
+</script>
+
+</body>
+
+</html>

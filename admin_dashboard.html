@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Dashboard</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+
+            min-height: 100vh;
+
+            background: linear-gradient(
+                135deg,
+                #0f0c29,
+                #302b63,
+                #24243e
+            );
+
+            color: white;
+
+            padding: 30px;
+        }
+
+
+        .container {
+
+            max-width: 1200px;
+
+            margin: auto;
+        }
+
+
+        /* Header */
+
+        .header {
+
+            background: rgba(255,255,255,0.10);
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+        }
+
+
+        .header h1 {
+
+            font-size: 28px;
+
+        }
+
+
+        .header p {
+
+            margin-top: 8px;
+
+            color: #ccc;
+
+        }
+
+
+        .logout {
+
+            background: #ff4b5c;
+
+            color: white;
+
+            text-decoration: none;
+
+            padding: 12px 20px;
+
+            border-radius: 10px;
+
+            font-weight: bold;
+
+        }
+
+
+        .logout:hover {
+
+            background: #ff1f3d;
+
+        }
+
+
+        /* Statistics */
+
+        .stats {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(5, 1fr);
+
+            gap: 15px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .stat-card {
+
+            background:
+                rgba(255,255,255,0.10);
+
+            padding: 22px;
+
+            border-radius: 18px;
+
+            text-align: center;
+
+            transition: 0.3s;
+
+        }
+
+
+        .stat-card:hover {
+
+            transform: translateY(-5px);
+
+            background:
+                rgba(255,255,255,0.15);
+
+        }
+
+
+        .stat-icon {
+
+            font-size: 30px;
+
+            margin-bottom: 10px;
+
+        }
+
+
+        .stat-number {
+
+            font-size: 30px;
+
+            font-weight: bold;
+
+            margin-bottom: 5px;
+
+        }
+
+
+        .stat-title {
+
+            color: #ccc;
+
+            font-size: 14px;
+
+        }
+
+
+        /* Main */
+
+        .complaints {
+
+            background:
+                rgba(255,255,255,0.10);
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+        }
+
+
+        .complaints h2 {
+
+            margin-bottom: 20px;
+
+        }
+
+
+        /* Complaint Card */
+
+        .complaint-card {
+
+            background:
+                rgba(0,0,0,0.25);
+
+            padding: 20px;
+
+            border-radius: 15px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .complaint-card h3 {
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .complaint-info {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 8px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .complaint-info p {
+
+            color: #ddd;
+
+        }
+
+
+        .description {
+
+            background:
+                rgba(255,255,255,0.08);
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        /* Update Form */
+
+        .update-form {
+
+            background:
+                rgba(255,255,255,0.08);
+
+            padding: 20px;
+
+            border-radius: 12px;
+
+        }
+
+
+        .update-form label {
+
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-weight: bold;
+
+        }
+
+
+        .update-form select,
+
+        .update-form textarea {
+
+            width: 100%;
+
+            padding: 12px;
+
+            border: none;
+
+            outline: none;
+
+            border-radius: 8px;
+
+            margin-bottom: 15px;
+
+            font-size: 15px;
+
+        }
+
+
+        .update-form select {
+
+            background: white;
+
+            color: black;
+
+        }
+
+
+        .update-form textarea {
+
+            height: 100px;
+
+            resize: vertical;
+
+        }
+
+
+        .update-btn {
+
+            background: #00c6ff;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+        .update-btn:hover {
+
+            background: #0099cc;
+
+        }
+
+
+        /* Status */
+
+        .status {
+
+            display: inline-block;
+
+            padding: 7px 14px;
+
+            border-radius: 20px;
+
+            background: #ffc107;
+
+            color: black;
+
+            font-weight: bold;
+
+            margin-top: 5px;
+
+        }
+
+
+        /* Flash */
+
+        .message {
+
+            background:
+                rgba(0,255,150,0.15);
+
+            border: 1px solid #00ff99;
+
+            padding: 12px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            text-align: center;
+
+        }
+
+
+        /* No complaints */
+
+        .no-complaints {
+
+            text-align: center;
+
+            padding: 50px;
+
+            color: #ccc;
+
+        }
+
+
+        /* Mobile */
+
+        @media (max-width: 900px) {
+
+            .stats {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            body {
+
+                padding: 15px;
+
+            }
+
+
+            .header {
+
+                flex-direction: column;
+
+                gap: 15px;
+
+                text-align: center;
+
+            }
+
+
+            .stats {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .complaint-info {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <div>
+
+            <h1>
+                👨‍💼 Admin Dashboard
+            </h1>
+
+            <p>
+                Welcome, {{ session["name"] }}
+            </p>
+
+        </div>
+
+
+        <a
+            href="{{ url_for('logout') }}"
+            class="logout"
+        >
+            Logout
+        </a>
+
+    </div>
+
+
+    <!-- Flash Messages -->
+
+    {% with messages = get_flashed_messages() %}
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="message">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+    {% endwith %}
+
+
+    <!-- Statistics -->
+
+    <div class="stats">
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                📋
+            </div>
+
+            <div class="stat-number">
+                {{ total_complaints }}
+            </div>
+
+            <div class="stat-title">
+                Total
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ⏳
+            </div>
+
+            <div class="stat-number">
+                {{ pending }}
+            </div>
+
+            <div class="stat-title">
+                Pending
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                🔄
+            </div>
+
+            <div class="stat-number">
+                {{ in_progress }}
+            </div>
+
+            <div class="stat-title">
+                In Progress
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ✅
+            </div>
+
+            <div class="stat-number">
+                {{ resolved }}
+            </div>
+
+            <div class="stat-title">
+                Resolved
+            </div>
+
+        </div>
+
+
+        <div class="stat-card">
+
+            <div class="stat-icon">
+                ❌
+            </div>
+
+            <div class="stat-number">
+                {{ rejected }}
+            </div>
+
+            <div class="stat-title">
+                Rejected
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <!-- Complaints -->
+
+    <div class="complaints">
+
+        <h2>
+            📢 All Student Complaints
+        </h2>
+        
+<!-- Search and Filter -->
+
+<div class="filter-box">
+
+    <form
+        method="GET"
+        action="{{ url_for('admin_dashboard') }}"
+    >
+
+        <input
+            type="text"
+            name="search"
+            value="{{ search }}"
+            placeholder="🔍 Search student, email, category or location..."
+        >
+
+        <select name="status">
+
+            <option value="">
+                All Status
+            </option>
+
+            <option value="Pending"
+                {% if status_filter == "Pending" %}
+                selected
+                {% endif %}
+            >
+                Pending
+            </option>
+
+            <option value="In Progress"
+                {% if status_filter == "In Progress" %}
+                selected
+                {% endif %}
+            >
+                In Progress
+            </option>
+
+            <option value="Resolved"
+                {% if status_filter == "Resolved" %}
+                selected
+                {% endif %}
+            >
+                Resolved
+            </option>
+
+            <option value="Rejected"
+                {% if status_filter == "Rejected" %}
+                selected
+                {% endif %}
+            >
+                Rejected
+            </option>
+
+        </select>
+
+        <button type="submit">
+            🔍 Search
+        </button>
+
+        <a
+            href="{{ url_for('admin_dashboard') }}"
+            class="reset-btn"
+        >
+            🔄 Reset
+        </a>
+
+    </form>
+
+</div>
+
+
+
+        {% if complaints %}
+
+
+            {% for complaint in complaints %}
+
+
+                <div class="complaint-card">
+
+
+                    <h3>
+                        📝 Complaint #{{ complaint["id"] }}
+                    </h3>
+
+
+                    <div class="complaint-info">
+
+
+                        <p>
+                            <strong>👤 Student:</strong>
+                            {{ complaint["name"] }}
+                        </p>
+
+
+                        <p>
+                            <strong>📧 Email:</strong>
+                            {{ complaint["email"] }}
+                        </p>
+
+
+                        <p>
+                            <strong>📂 Category:</strong>
+                            {{ complaint["category"] }}
+                        </p>
+
+
+                        <p>
+                            <strong>📍 Location:</strong>
+                            {{ complaint["location"] }}
+                        </p>
+
+
+                        <p>
+                            <strong>📅 Date:</strong>
+                            {{ complaint["created_at"] }}
+                        </p>
+
+
+                    </div>
+
+
+                    <!-- Current Status -->
+
+                    <p>
+                        <strong>Current Status:</strong>
+
+                        <span class="status">
+                            {{ complaint["status"] }}
+                        </span>
+                    </p>
+
+
+                    <br>
+
+
+                    <!-- Description -->
+
+                    <div class="description">
+
+                        <strong>
+                            📝 Description
+                        </strong>
+
+                        <p style="margin-top: 10px;">
+                            {{ complaint["description"] }}
+                        </p>
+
+                    </div>
+
+
+                    <!-- Update -->
+
+                    <div class="update-form">
+
+
+                        <form
+                            method="POST"
+                            action="{{ url_for(
+                                'update_complaint',
+                                complaint_id=complaint['id']
+                            ) }}"
+                        >
+
+
+                            <label>
+                                Update Status
+                            </label>
+
+
+                            <select
+                                name="status"
+                                required
+                            >
+
+                                <option value="Pending"
+                                    {% if complaint["status"] == "Pending" %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Pending
+                                </option>
+
+
+                                <option value="In Progress"
+                                    {% if complaint["status"] == "In Progress" %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    In Progress
+                                </option>
+
+
+                                <option value="Resolved"
+                                    {% if complaint["status"] == "Resolved" %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Resolved
+                                </option>
+
+
+                                <option value="Rejected"
+                                    {% if complaint["status"] == "Rejected" %}
+                                    selected
+                                    {% endif %}
+                                >
+                                    Rejected
+                                </option>
+
+                            </select>
+
+
+                            <label>
+                                👨‍💼 Admin Response
+                            </label>
+
+
+                            <textarea
+                                name="admin_response"
+                                placeholder="Write your response to the student..."
+                            >{{ complaint["admin_response"] or "" }}</textarea>
+
+
+                            <button
+                                type="submit"
+                                class="update-btn"
+                            >
+                                💾 Update Complaint
+                            </button>
+
+
+                        </form>
+
+
+                    </div>
+
+
+                </div>
+
+
+            {% endfor %}
+
+
+        {% else %}
+
+
+            <div class="no-complaints">
+
+                <h2>
+                    📭 No Complaints
+                </h2>
+
+                <p>
+                    There are no complaints submitted yet.
+                </p>
+
+            </div>
+
+
+        {% endif %}
+
+
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
+

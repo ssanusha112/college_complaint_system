@@ -1,0 +1,272 @@
+/* Search and Filter */
+
+.filter-box {
+
+    background: rgba(255,255,255,0.08);
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    margin-bottom: 25px;
+}
+
+.filter-box form {
+
+    display: flex;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.filter-box input {
+
+    flex: 1;
+
+    min-width: 250px;
+
+    padding: 12px;
+
+    border: none;
+
+    outline: none;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+}
+
+.filter-box select {
+
+    padding: 12px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 15px;
+
+    background: white;
+
+    color: black;
+}
+
+.filter-box button {
+
+    padding: 12px 20px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    background: #00c6ff;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+.filter-box button:hover {
+
+    background: #0099cc;
+}
+
+.reset-btn {
+
+    display: inline-block;
+
+    padding: 12px 20px;
+
+    border-radius: 8px;
+
+    background: #ff4b5c;
+
+    color: white;
+
+    text-decoration: none;
+
+    font-weight: bold;
+}
+
+.reset-btn:hover {
+
+    background: #ff1f3d;
+}
+
+@media (max-width: 600px) {
+
+    .filter-box form {
+
+        flex-direction: column;
+    }
+
+    .filter-box input {
+
+        min-width: 100%;
+    }
+
+}
+/* Notification Section */
+
+.notifications {
+
+    background: rgba(255,255,255,0.10);
+
+    padding: 25px;
+
+    border-radius: 18px;
+
+    margin-bottom: 25px;
+}
+
+
+.notification-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 18px;
+}
+
+
+.notification-count {
+
+    background: #ff4b5c;
+
+    color: white;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+}
+
+
+.notification-card {
+
+    display: flex;
+
+    gap: 15px;
+
+    padding: 18px;
+
+    border-radius: 12px;
+
+    margin-bottom: 12px;
+
+    background: rgba(0,0,0,0.25);
+}
+
+
+.notification-card.unread {
+
+    border-left: 4px solid #00c6ff;
+
+    background: rgba(0,198,255,0.12);
+}
+
+
+.notification-icon {
+
+    font-size: 25px;
+
+    flex-shrink: 0;
+}
+
+
+.notification-content {
+
+    flex: 1;
+}
+
+
+.notification-content p {
+
+    color: white;
+
+    margin-bottom: 7px;
+
+    line-height: 1.5;
+}
+
+
+.notification-content small {
+
+    color: #aaa;
+
+    display: block;
+
+    margin-bottom: 8px;
+}
+
+
+/* Mark as Read Button */
+
+.read-btn {
+
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    background: #00c6ff;
+
+    color: white;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-top: 5px;
+}
+
+
+.read-btn:hover {
+
+    background: #0099cc;
+
+    transform: translateY(-2px);
+}
+
+
+/* Already Read */
+
+.read-text {
+
+    display: inline-block;
+
+    color: #00ff99;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    margin-top: 5px;
+}
+
+
+.no-notifications {
+
+    text-align: center;
+
+    padding: 20px;
+
+    color: #aaa;
+}
+
+
+
+
+
